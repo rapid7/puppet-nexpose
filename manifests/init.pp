@@ -64,13 +64,15 @@ class nexpose (
   }
 
   case $component_type {
-    'engine': { 
-      $console_bool = 'false'
-      $engine_bool  = 'true'
+    'engine': {
+      $console_bool    = 'false'
+      $engine_bool     = 'true'
+      $service_process = "nse.sh"
     }
     'console', 'typical': {
-      $console_bool = 'true'
-      $engine_bool  = 'false'
+      $console_bool    = 'true'
+      $engine_bool     = 'false'
+      $service_process = "nsc.sh"
     }
   }
 

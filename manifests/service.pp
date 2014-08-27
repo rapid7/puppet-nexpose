@@ -1,4 +1,4 @@
-class nexpose::service ( 
+class nexpose::service (
 
   $service_name,
   $service_enable = true,
@@ -7,8 +7,11 @@ class nexpose::service (
 ) {
 
   service { $service_name:
-    enable => true,
-    ensure => running,
+    enable     => $service_enable,
+    ensure     => $service_ensure,
+    hasstatus  => false,
+    status     => "pgrep ${::nexpose::service_process}",
+    require    => Exec['install_nexpose'],
   }
 
 }

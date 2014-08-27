@@ -1,0 +1,88 @@
+#
+# response.varfile managed by Puppet for <%= scope.lookupvar('::fqdn') %>
+#
+
+# RESPONSE FILE FOR UNATTENDED/QUITE INSTALL OF THE PRODUCT.
+# BY USING THIS FILE YOU AGREE TO BE BOUND BY THE TERMS
+# AND CONDITIONS SPECIFIED IN THE PRODUCT EULA
+ 
+# NOTE:
+# THIS FILE ASSUMES YOU ALREADY HAVE A KEY TO ACTIVATE
+# THE PRODUCT. THE COMPUTER IS REBOOTED BY DEFAULT AFTER THE
+# INSTALL, YOU CAN OVERRIDE THIS BEHAVIOR BY PASSING A
+# COMMAND LINE PARAMETER
+# -Dinstall4j.suppressUnattendedReboot=true
+ 
+#ONLY ENGLISH LANGUAGE IS SUPPORTED
+sys.languageId=en
+ 
+#OPTIONALLY SPECIFY AN IPV4 SERVER ADDRESS OR DOMAIN NAME
+#proxyHost=10.2.45.143
+#proxyHost=<proxy host address>
+<%- if scope.lookup('::nexpose::proxy_host') -%>
+proxyHost=<%= scope.lookup('::nexpose::proxy_host') %>
+<%- end -%>
+
+#OPTIONALLY SPECIFY A VALID PROXY PORT
+#proxyPort=808
+#proxyPort=<proxy port number>
+<%- if scope.lookup('::nexpose::proxy_proxy') -%>
+proxyPort=<%= scope.lookup('::nexpose::proxy_port') %>
+<%- end -%>
+
+#FIRST NAME AND LAST NAME AND COMPANY NAME MUST BE AT
+#LEAST 1 CHARACTER
+#firstname=John
+#lastname=Doe
+#company=Rapid7 LLC
+firstname=<%= scope.lookupvar('::nexpose::fire_name') %>
+lastname=<%= scope.lookupvar('::nexpose::last_name') %>
+company=<%= scope.lookupvar('::nexpose::company_name') %>
+
+## Installation component type.
+sys.component.engine$Boolean=<%= scope.lookupvar('::nexpose::engine_bool') %>
+sys.component.typical$Boolean=<%= scope.lookupvar('::nexpose::console_bool') %>
+
+###############################################################
+#IT IS STRONGLY RECOMMENDED NOT TO USE PLAIN TEXT PASSWORDS
+#IN THIS DOCUMENT,A RESPONSE>VARFILE IS STORED IN THE
+#<INSTALL_DIR>/.INSTALL4j FOLDER AFTER A SUCCESSFUL INSTALL
+#OF NEXPOSE. YOU CAN USE THIS TO TAILOR YOUR OWN RESPONSE FILE
+###############################################################
+#GLOBAL ADMINISTRATOR USERNAME AND PASSWORD MUST BE A MINIMUM OF
+#6 CHARACTERS.  The values for password1 and password2 must match.
+#username=jsmith
+#password1=example
+#password2=example
+#
+#NOTE: A response file created by running the installer will contain the
+# options "password1.encoded" and "password2.encoded" and a encoded
+# value for the supplied password.  This is more secure than storing
+# the password in plaintext in the response file, but requires an
+# installation to be completed in order to determine the encoded password
+# value. Response files should be treated as sensitive data even if they
+# contain only encrypted password values.
+ 
+username=<%= scope.lookupvar('::nexpose::nexpose_user') %>
+password1=<%= scope.lookupvar('::nexpose::nexpose_password') %>
+password2=<%= scope.lookupvar('::nexpose::nexpose_password') %>
+ 
+#INSTALL PATH SEPERATOR MUST BE ESCAPED
+#sys.installationDir=C:\\Program Files\\Rapid7\\custom
+#sys.installationDir=<install path>
+ 
+#SET THIS TO TRUE IF A DESKTOP ICON TO START NEXPOSE IS REQUIRED
+#createDesktopLinkAction$Boolean=true or false
+
+#SET THIS TO TRUE IF THE START MENU SHORTCUTS TO CONTROL NEXPOSE
+#SHOULD BE AVAILABLE TO ALL USERS
+#sys.programGroupAllUsers$Boolean=true or false
+ 
+#SET THE NAME OF THE START MENU ITEM
+#sys.programGroupName=Nexpose
+
+#Prevent the installer from starting Nexpose and delegate control to Chef.
+initService$Boolean=false
+
+#DO NOT MODIFY THE FIELDS BELOW
+registrationRequired$Integer=1

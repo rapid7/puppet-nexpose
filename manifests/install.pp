@@ -11,30 +11,30 @@ class nexpose::install (
   }
 
   file { 'rapid7_directory':
-    path    => $::nexpose::install_path,
-    ensure  => directory,
-    owner   => 'root',
-    group   => 'root',
+    ensure => directory,
+    path   => $::nexpose::install_path,
+    owner  => 'root',
+    group  => 'root',
   }
 
   file { 'nexpose_directory':
-    path    => "${::nexpose::install_path}/nexpose",
     ensure  => directory,
+    path    => "${::nexpose::install_path}/nexpose",
     require => Exec['install_nexpose'],
   }
 
   file { 'response_varfile':
-    path    => $::nexpose::varfile_path,
     ensure  => file,
+    path    => $::nexpose::varfile_path,
     content => template('nexpose/response.varfile.erb'),
-    mode    => 0750,
+    mode    => '0750',
     owner   => 'root',
     group   => 'root',
   }
 
   file { 'nexpose_installer':
     path    => "${::nexpose::installer_path}",
-    mode    => 0750,
+    mode    => '0750',
     require => Exec['download_installer'],
     owner   => 'root',
     group   => 'root',
@@ -47,7 +47,7 @@ class nexpose::install (
   }
 
   exec { 'install_nexpose':
-    command => "${::nexpose::installer_path} -q -Dinstall4j.suppressUnattendedReboot=${::nexpose::suppress_reboot} -varfile $::nexpose::varfile_path",
+    command => "${::nexpose::installer_path} -q -Dinstall4j.suppressUnattendedReboot=${::nexpose::suppress_reboot} -varfile ${::nexpose::varfile_path}",
     require => File['response_varfile'],
     creates => "${::nexpose::install_path}/nexpose",
   }

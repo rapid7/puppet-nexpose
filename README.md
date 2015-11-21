@@ -67,8 +67,3 @@ with things. (We are working on automating this section!)
 
 This is where you list OS compatibility, version compatibility, etc.
 
-## Development
-
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
-

@@ -59,7 +59,8 @@ class nexpose (
   "Component type ${component_type} needs to be one of the following: typical, console, engine")
 
   $nexpose_init = $component_type ? {
-    'engine'            => 'nexposeengine.rc',
+    #'engine'            => 'nexposeengine.rc',
+    'engine'            => 'nexposeengine',
     /(console|typical)/ => 'nexposeconsole.rc',
   }
 

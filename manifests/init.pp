@@ -80,10 +80,10 @@ class nexpose (
     component_type => $component_type,
   }
 
-  class { '::nexpose::service':
-    service_name   => $nexpose_init,
-    service_enable => $service_enable,
-    service_ensure => $service_ensure,
-  }
+  #  class { '::nexpose::service':
+  #  service_name   => $nexpose_init,
+  #  service_enable => $service_enable,
+  #  service_ensure => $service_ensure,
+  # }
 
 }

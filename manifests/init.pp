@@ -59,8 +59,14 @@ class nexpose (
   "Component type ${component_type} needs to be one of the following: typical, console, engine")
 
   $nexpose_init = $component_type ? {
-    'engine'            => 'nexposeengine.rc',
-    /(console|typical)/ => 'nexposeconsole.rc',
+    'engine'            => $::operatingsystem ? {
+      'Ubuntu' => 'nexposeengine.rc',
+      'RedHat' => 'nexposeengine',
+    },
+    /(console|typical)/ => $::operatingsystem ? {
+      'Ubuntu' => 'nexposeconsole.rc',
+      'RedHat' => 'nexposeconsole',
+    }
   }
 
   case $component_type {
@@ -80,10 +86,10 @@ class nexpose (
     component_type => $component_type,
   }
 
-  #  class { '::nexpose::service':
-  #  service_name   => $nexpose_init,
-  #  service_enable => $service_enable,
-  #  service_ensure => $service_ensure,
-  # }
+  class { '::nexpose::service':
+    service_name   => $nexpose_init,
+    service_enable => $service_enable,
+    service_ensure => $service_ensure,
+  }
 
 }

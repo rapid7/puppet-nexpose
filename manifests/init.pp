@@ -92,4 +92,9 @@ class nexpose (
     service_ensure => $service_ensure,
   }
 
+  contain '::nexpose::install'
+  contain '::nexpose::service'
+
+  Class['::nexpose::install']->
+  Class['::nexpose::service']
 }

@@ -23,7 +23,7 @@ class nexpose::params {
       $varfile_path = "${install_path}/${varfile_name}"
     }
   }
-  elsif $::operatingsystem == 'RedHat' {
+  elsif (($::operatingsystem == 'RedHat') or ($::operatingsystem == 'CentOS')) {
       $installer_bin = 'NeXposeSetup-Linux64.bin'
       $installer_checksum = undef
       $installer_uri = "http://download2.rapid7.com/download/NeXpose-v4/${installer_bin}"
@@ -33,7 +33,7 @@ class nexpose::params {
       $varfile_path = "${install_path}/${varfile_name}"
   }
   else {
-    fail('Currently this module only supports Ubuntu 14.04 and 16.04, and Redhat 7.2')
+    fail('Currently this module only supports Ubuntu 14.04 and 16.04, and Redhat/CentOS 7')
   }
 
 }

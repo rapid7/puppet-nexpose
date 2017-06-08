@@ -60,12 +60,12 @@ class nexpose (
 
   $nexpose_init = $component_type ? {
     'engine'            => $::operatingsystem ? {
-      'Ubuntu' => 'nexposeengine.rc',
-      'RedHat' => 'nexposeengine',
+      'Ubuntu'          => 'nexposeengine.rc',
+      /(CentOS|RedHat)/ => 'nexposeengine',
     },
     /(console|typical)/ => $::operatingsystem ? {
-      'Ubuntu' => 'nexposeconsole.rc',
-      'RedHat' => 'nexposeconsole',
+      'Ubuntu'          => 'nexposeconsole.rc',
+      /(CentOS|RedHat)/ => 'nexposeconsole',
     }
   }
 

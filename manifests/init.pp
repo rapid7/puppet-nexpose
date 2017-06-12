@@ -43,8 +43,7 @@ class nexpose (
   $component_type     = $::nexpose::params::component_type,
   $nexpose_user       = $::nexpose::params::nexpose_user,
   $nexpose_password   = $::nexpose::params::nexpose_password,
-  $proxy_host         = $::nexpose::params::proxy_host,
-  $proxy_port         = $::nexpose::params::proxy_port,
+  $proxy_uri          = $::nexpose::params::proxy_uri,
   $suppress_reboot    = $::nexpose::params::suppress_reboot,
   $installer_checksum = $::nexpose::params::installer_checksum,
   $installer_uri      = $::nexpose::params::installer_uri,
@@ -59,13 +58,13 @@ class nexpose (
   "Component type ${component_type} needs to be one of the following: typical, console, engine")
 
   $nexpose_init = $component_type ? {
-    'engine'            => $::operatingsystem ? {
-      'Ubuntu'          => 'nexposeengine.rc',
-      /(CentOS|RedHat)/ => 'nexposeengine',
+    'engine'            => $::osfamily ? {
+      'Debian' => 'nexposeengine.rc',
+      'RedHat' => 'nexposeengine',
     },
-    /(console|typical)/ => $::operatingsystem ? {
-      'Ubuntu'          => 'nexposeconsole.rc',
-      /(CentOS|RedHat)/ => 'nexposeconsole',
+    /(console|typical)/ => $::osfamily ? {
+      'Debian' => 'nexposeconsole.rc',
+      'RedHat' => 'nexposeconsole',
     }
   }
 

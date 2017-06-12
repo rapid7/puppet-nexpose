@@ -2,7 +2,7 @@
   "name": "rapid7-nexpose",
   "version": "0.1.0",
   "author": "rapid7",
-  "summary": "Installs Nexpose and it's dependencies",
+  "summary": "Installs Nexpose and its dependencies",
   "license": "Apache 2.0",
   "source": "",
   "project_page": null,
@@ -11,6 +11,10 @@
     {
       "name": "puppetlabs-stdlib",
       "version_range": ">= 1.0.0"
+    },
+    {
+      "name": "puppet-archive",
+      "version_range": ">= 0.5.1"
     }
   ]
 }

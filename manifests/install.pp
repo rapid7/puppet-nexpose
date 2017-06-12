@@ -1,7 +1,7 @@
 class nexpose::install (
 
   $component_type,
-  $proxy_host = undef,
+  $proxy_uri = undef,
 
 ) {
 
@@ -34,15 +34,17 @@ class nexpose::install (
   file { 'nexpose_installer':
     path    => "${::nexpose::installer_path}",
     mode    => '0750',
-    require => Exec['download_installer'],
+    require => Archive["${::nexpose::installer_path}"],
     owner   => 'root',
     group   => 'root',
   }
 
-  exec { 'download_installer':
-    command => "/usr/bin/wget -O ${::nexpose::installer_path} ${::nexpose::installer_uri}",
-    require => File['rapid7_directory'],
-    creates => $::nexpose::installer_path,
+  archive { $::nexpose::installer_path:
+    source       => $::nexpose::installer_uri,
+    require      => File['rapid7_directory'],
+    creates      => $::nexpose::installer_path,
+    cleanup      => false,
+    proxy_server => $proxy_uri,
   }
 
   exec { 'install_nexpose':

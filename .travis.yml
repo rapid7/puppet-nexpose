@@ -16,7 +16,7 @@ before_install:
 
 sudo: false
 
-script: 'puppet help; SPEC_OPTS="--format documentation" bundle exec rake validate'
+script: 'SPEC_OPTS="--format documentation" bundle exec rake validate'
 
 matrix:
   fast_finish: true

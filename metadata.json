@@ -32,6 +32,10 @@
     {
       "name": "puppetlabs-stdlib",
       "version_range": ">= 1.0.0"
+    },
+    {
+      "name": "puppet-archive",
+      "version_range": ">= 0.5.1"
     }
   ]
 }

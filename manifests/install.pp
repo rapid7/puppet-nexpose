@@ -2,7 +2,7 @@ class nexpose::install (
 
   $component_type,
   $proxy_host = undef,
-  $proxy_host = undef,
+  $proxy_port = undef,
 
 ) {
 

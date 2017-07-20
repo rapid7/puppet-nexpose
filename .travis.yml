@@ -12,10 +12,11 @@ before_install:
   - gem update bundler
   - gem --version
   - bundle -v
+  - gem list
 
 sudo: false
 
-script: 'SPEC_OPTS="--format documentation" bundle exec rake validate'
+script: 'puppet help; SPEC_OPTS="--format documentation" bundle exec rake validate'
 
 matrix:
   fast_finish: true

@@ -2,11 +2,32 @@
   "name": "rapid7-nexpose",
   "version": "0.1.0",
   "author": "rapid7",
-  "summary": "Installs Nexpose and its dependencies",
+  "summary": "A module to install Rapid7 Nexpose",
   "license": "Apache 2.0",
-  "source": "",
-  "project_page": null,
-  "issues_url": null,
+  "source": "https://github.com/rapid7/puppet-nexpose",
+  "project_page": "https://github.com/rapid7/puppet-nexpose",
+  "issues_url": "https://github.com/rapid7/puppet-nexpose/issues",
+  "tags": [
+    "rapid7",
+    "nexpose",
+    "vulnerability",
+    "scanner"
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "14.04",
+        "16.04"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">=3.8.0 < 4.0.0"
+    }
+  ],
   "dependencies": [
     {
       "name": "puppetlabs-stdlib",

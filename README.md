@@ -1,65 +1,200 @@
+[![Build Status](https://travis-ci.org/rapid7/puppet-nexpose.svg?branch=production)](https://travis-ci.org/rapid7/puppet-nexpose)
 # nexpose
 
 #### Table of Contents
 
 1. [Overview](#overview)
-2. [Module Description - What the module does and why it is useful](#module-description)
+2. [Installation](#installation)
 3. [Setup - The basics of getting started with nexpose](#setup)
-    * [What nexpose affects](#what-nexpose-affects)
-    * [Setup requirements](#setup-requirements)
     * [Beginning with nexpose](#beginning-with-nexpose)
+    * [Dependencies](#dependencies)
 4. [Usage - Configuration options and additional functionality](#usage)
 5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
 
+
 ## Overview
 
-A one-maybe-two sentence summary of what the module does/what problem it solves.
-This is your 30 second elevator pitch for your module. Consider including
-OS/Puppet version it works with.
+Installs and manages your on-prem vulnerability scanner, [Nexpose](https://www.rapid7.com/products/nexpose/)
 
-## Module Description
+## Installation
 
-If applicable, this section should have a brief description of the technology
-the module integrates with and what that integration enables. This section
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?"
-
-If your module has a range of functionality (installation, configuration,
-management, etc.) this is the time to mention it.
+```bash
+puppet module install rapid7-nexpose
+```
 
 ## Setup
 
-### What nexpose affects
-
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form.
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
-
 ### Beginning with nexpose
 
-The very basic steps needed for a user to get the module up and running.
+This will install a Nexpose Engine, ready to be paired with a Nexpose Console. Simple when having to provision multiple engines across your infrastructure.
 
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you may wish to include an additional section here: Upgrading
-(For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+```puppet
+class { '::nexpose':
+  component_type     => 'engine',
+  first_name         => 'Rapid7',
+  last_name          => 'User',
+  company_name       => 'Rapid7 LLC',
+}
+```
+
+### Dependencies
+
+- puppetlabs/stdlib >= 1.0.0
+- puppet-archive >= 0.5.1
+
+See `metadata.json` for details.
 
 ## Usage
 
-Put the classes, types, and resources for customizing, configuring, and doing
-the fancy stuff with your module here.
+### Provision a Nexpose Console
+
+```puppet
+class { '::nexpose':
+  component_type   => 'console',
+  first_name       => 'Rapid7',
+  last_name        => 'User',
+  company_name     => 'Rapid7 LLC',
+  nexpose_user     => 'nxadmin',
+  nexpose_password => 'super-secret-password',
+}
+```
+
+### Provision a Nexpose Engine using a proxy for updates
+
+```puppet
+class { '::nexpose':
+  component_type => 'engine',
+  first_name     => 'Rapid7',
+  last_name      => 'User',
+  company_name   => 'Rapid7 LLC',
+  proxy_uri      => 'myproxy.example.com:1234',
+}
+```
 
 ## Reference
 
-Here, list the classes, types, providers, facts, etc contained in your module.
-This section should include all of the under-the-hood workings of your module so
-people know what the module is touching on their system but don't need to mess
-with things. (We are working on automating this section!)
+### Classes
 
+#### Public classes
+
+* `nexpose` - Main class, includes all other classes.
+
+#### Private classes
+
+* `nexpose::install` - Installs Nexpose.
+* `nexpose::params` - Defines the default paramaters.
+* `nexpose::service` - Handles the Nexpose service.
+
+### Parameters
+
+The following parameters are available in the `::nexpose` class:
+
+#### `first_name`
+
+Optional.
+
+Data type: String.
+
+Defines the First Name value when installing Nexpose.
+
+Default value: 'Rapid7'.
+
+#### `last_name`
+
+Optional.
+
+Data type: String.
+
+Defines the Last Name value when installing Nexpose.
+
+Default value: 'User'.
+
+#### `company_name`
+
+Optional.
+
+Data type: String.
+
+Defines the Company Name value when installing Nexpose.
+
+Default value: 'Awesome Company'.
+
+#### `component_type`
+
+Optional.
+
+Data type: String.
+
+Defines if Nexpose will be installed as a Console or Engine. Valid values are `engine` or `console` (`typical` is also valid, same as console)
+
+Default value: 'engine'.
+
+#### `nexpose_user`
+
+Optional.
+
+Data type: String.
+
+Defines the username of the Nexpose Administrator account when provisioning a Console type.
+
+Default value: 'nxadmin'.
+
+#### `nexpose_password`
+
+Optional.
+
+Data type: String.
+
+Defines the password of the Nexpose Administrator account when provisioning a Console type.
+
+Default value: 'nxadmin'.
+
+#### `proxy_uri`
+
+Optional.
+
+Data type: String.
+
+Defines the proxy Nexpose will use when pulling software updates.
+
+Default value: `undef`.
+
+#### `suppress_reboot`
+
+Optional.
+
+Data type: Boolean.
+
+By default, the Nexpose installer reboots the system after installation. This suppresses that action.
+
+Default value: `true`.
+
+#### `service_enable`
+
+Optional.
+
+Data type: Boolean.
+
+Defines if Nexpose should start on system boot.
+
+Default value: `true`.
+
+#### `service_ensure`
+
+Optional.
+
+Data type: String.
+
+If Nexpose isn't running, Puppet will start it.
+
+Default value: 'running'.
+
+## Limitations
+
+This module has only been tested on Ubuntu 14.04 and 16.04.
+
+## Development
+
+Coming soon..

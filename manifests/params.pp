@@ -2,7 +2,7 @@ class nexpose::params {
 
   $first_name       = 'Nexpose'
   $last_name        = 'User'
-  $company_name     = 'Rapid7 LLC'
+  $company_name     = 'Awesome Company'
   $component_type   = 'engine'
   $nexpose_user     = 'nxadmin'
   $nexpose_password = 'nxadmin'

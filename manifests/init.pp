@@ -67,7 +67,11 @@ class nexpose (
       'RedHat' => 'nexposeengine',
     },
     /(console|typical)/ => $::osfamily ? {
-      'Debian' => 'nexposeconsole.rc',
+      'Debian' =>  $::lsbdistcodename ? {
+        'trusty' => 'nexposeconsole.rc',
+        'xenial' => 'nexposeconsole.service',
+        'bionic' => 'nexposeconsole.service',
+      },
       'RedHat' => 'nexposeconsole',
     }
   }

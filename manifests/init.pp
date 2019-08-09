@@ -59,7 +59,11 @@ class nexpose (
 
   $nexpose_init = $component_type ? {
     'engine'            => $::osfamily ? {
-      'Debian' => 'nexposeengine.rc',
+      'Debian' =>  $::lsbdistcodename ? {
+        'trusty' => 'nexposeengine.rc',
+        'xenial' => 'nexposeengine.service',
+        'bionic' => 'nexposeengine.service',
+      },
       'RedHat' => 'nexposeengine',
     },
     /(console|typical)/ => $::osfamily ? {
@@ -70,14 +74,14 @@ class nexpose (
 
   case $component_type {
     'engine': {
-      $console_bool    = 'false'
-      $engine_bool     = 'true'
-      $service_process = "nse.sh"
+      $console_bool    = false
+      $engine_bool     = true
+      $service_process = 'nse.sh'
     }
     'console', 'typical': {
-      $console_bool    = 'true'
-      $engine_bool     = 'false'
-      $service_process = "nsc.sh"
+      $console_bool    = true
+      $engine_bool     = false
+      $service_process = 'nsc.sh'
     }
   }
 
@@ -94,6 +98,6 @@ class nexpose (
   contain '::nexpose::install'
   contain '::nexpose::service'
 
-  Class['::nexpose::install']->
-  Class['::nexpose::service']
+  Class['::nexpose::install']
+  -> Class['::nexpose::service']
 }

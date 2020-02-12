@@ -13,9 +13,9 @@ class nexpose::params {
 
   if $::osfamily == 'Debian' {
     if $::lsbdistrelease == '14.04' or $::lsbdistrelease == '16.04' {
-      $installer_bin = 'NeXposeSetup-Linux64.bin'
+      $installer_bin = 'Rapid7Setup-Linux64.bin'
       $installer_checksum = undef
-      $installer_uri = "http://download2.rapid7.com/download/NeXpose-v4/${installer_bin}"
+      $installer_uri = "http://download2.rapid7.com/download/InsightVM/${installer_bin}"
       $install_path = '/opt/rapid7'
       $installer_path = "${install_path}/${installer_bin}"
       $varfile_name = 'response.varfile'
@@ -23,9 +23,9 @@ class nexpose::params {
     }
   }
   elsif $::osfamily == 'RedHat' {
-      $installer_bin = 'NeXposeSetup-Linux64.bin'
+      $installer_bin = 'Rapid7Setup-Linux64.bin'
       $installer_checksum = undef
-      $installer_uri = "http://download2.rapid7.com/download/NeXpose-v4/${installer_bin}"
+      $installer_uri = "http://download2.rapid7.com/download/InsightVM/${installer_bin}"
       $install_path = '/opt/rapid7'
       $installer_path = "${install_path}/${installer_bin}"
       $varfile_name = 'response.varfile'

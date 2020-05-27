@@ -5,9 +5,7 @@ class nexpose::install (
 
 ) {
 
-  package { 'screen':
-    ensure => present,
-  }
+  ensure_packages(['screen'], {'ensure' => 'latest'})
 
   file { 'rapid7_directory':
     ensure => directory,

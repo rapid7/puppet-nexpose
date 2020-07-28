@@ -11,25 +11,23 @@ class nexpose::params {
   $service_enable   = true
   $service_ensure   = 'running'
 
-  if $::osfamily == 'Debian' {
-    if $::lsbdistrelease == '14.04' or $::lsbdistrelease == '16.04' {
-      $installer_bin = 'Rapid7Setup-Linux64.bin'
-      $installer_checksum = undef
-      $installer_uri = "http://download2.rapid7.com/download/InsightVM/${installer_bin}"
-      $install_path = '/opt/rapid7'
-      $installer_path = "${install_path}/${installer_bin}"
-      $varfile_name = 'response.varfile'
-      $varfile_path = "${install_path}/${varfile_name}"
-    }
+  if $facts['os']['family'] == 'Debian' {
+    $installer_bin = 'Rapid7Setup-Linux64.bin'
+    $installer_checksum = undef
+    $installer_uri = "http://download2.rapid7.com/download/InsightVM/${installer_bin}"
+    $install_path = '/opt/rapid7'
+    $installer_path = "${install_path}/${installer_bin}"
+    $varfile_name = 'response.varfile'
+    $varfile_path = "${install_path}/${varfile_name}"
   }
-  elsif $::osfamily == 'RedHat' {
-      $installer_bin = 'Rapid7Setup-Linux64.bin'
-      $installer_checksum = undef
-      $installer_uri = "http://download2.rapid7.com/download/InsightVM/${installer_bin}"
-      $install_path = '/opt/rapid7'
-      $installer_path = "${install_path}/${installer_bin}"
-      $varfile_name = 'response.varfile'
-      $varfile_path = "${install_path}/${varfile_name}"
+  elsif $facts['os']['family'] == 'RedHat' {
+    $installer_bin = 'Rapid7Setup-Linux64.bin'
+    $installer_checksum = undef
+    $installer_uri = "http://download2.rapid7.com/download/InsightVM/${installer_bin}"
+    $install_path = '/opt/rapid7'
+    $installer_path = "${install_path}/${installer_bin}"
+    $varfile_name = 'response.varfile'
+    $varfile_path = "${install_path}/${varfile_name}"
   }
   else {
     fail('OS Not supported.')

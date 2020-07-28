@@ -63,6 +63,7 @@ class nexpose (
         'trusty' => 'nexposeengine.rc',
         'xenial' => 'nexposeengine.service',
         'bionic' => 'nexposeengine.service',
+        'focal'  => 'nexposeengine.service'
       },
       'RedHat' => 'nexposeengine',
     },
@@ -71,6 +72,7 @@ class nexpose (
         'trusty' => 'nexposeconsole.rc',
         'xenial' => 'nexposeconsole.service',
         'bionic' => 'nexposeconsole.service',
+        'focal'  => 'nexposeconsole.service'
       },
       'RedHat' => 'nexposeconsole',
     }

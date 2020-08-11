@@ -21,7 +21,7 @@ script: 'SPEC_OPTS="--format documentation" bundle exec rake validate'
 matrix:
   fast_finish: true
   include:
-  - rvm: 2.1.9
+  - rvm: 2.3.0
     env: PUPPET_GEM_VERSION=">= 3.8.5"
 
 notifications:

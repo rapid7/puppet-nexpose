@@ -42,6 +42,7 @@ company=<%= scope.lookupvar('::nexpose::company_name') %>
 ## Installation component type.
 sys.component.engine$Boolean=<%= scope.lookupvar('::nexpose::engine_bool') %>
 sys.component.typical$Boolean=<%= scope.lookupvar('::nexpose::console_bool') %>
+communicationDirectionChoice$Integer=1
 
 ###############################################################
 #IT IS STRONGLY RECOMMENDED NOT TO USE PLAIN TEXT PASSWORDS
@@ -69,7 +70,7 @@ password2=<%= scope.lookupvar('::nexpose::nexpose_password') %>
 
 #INSTALL PATH SEPERATOR MUST BE ESCAPED
 #sys.installationDir=C:\\Program Files\\Rapid7\\custom
-sys.installationDir=/opt/rapid7/nexpose
+#sys.installationDir=/opt/rapid7/nexpose
 
 #SET THIS TO TRUE IF A DESKTOP ICON TO START NEXPOSE IS REQUIRED
 #createDesktopLinkAction$Boolean=true or false
@@ -81,8 +82,11 @@ sys.installationDir=/opt/rapid7/nexpose
 #SET THE NAME OF THE START MENU ITEM
 #sys.programGroupName=Nexpose
 
-#Prevent the installer from starting Nexpose and delegate control to Chef.
+#Prevent the installer from starting Nexpose and delegate control to Puppet.
 initService$Boolean=false
+
+# Prompt to reset password at first login
+requirePasswordChange$Boolean=false
 
 #DO NOT MODIFY THE FIELDS BELOW
 registrationRequired$Integer=1

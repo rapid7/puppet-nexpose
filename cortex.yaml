@@ -1,0 +1,15 @@
+---
+info:
+  title: Puppet Nexpose
+  description: Puppet module for Nexpose
+  x-cortex-git:
+    github:
+      alias: r7org
+      repository: rapid7/puppet-nexpose
+  x-cortex-tag: puppet-nexpose
+  x-cortex-type: service
+  x-cortex-domain-parents:
+  - tag: it
+openapi: 3.0.1
+servers:
+- url: "/"
